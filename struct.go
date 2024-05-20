@@ -4,26 +4,13 @@ type antFarm struct {
 	Ants     int
 	Start    string
 	End      string
-	Paths    []string
-	Rooms    []string
-	RoomName Room
-	Location Location
+	RoomName string
+	X        string
+	Y        string
+	From     string
+	To       string
 }
-
-type Room struct {
-	Name string
-}
-
-type Path struct {
-	PathNum   int
-	NumOfAnts int
-}
-type Location struct {
-	X string
-	Y string
-}
-
-type sarsor struct {
+type Ant struct {
 	Name string
 }
 type Move struct {

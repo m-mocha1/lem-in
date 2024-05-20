@@ -21,15 +21,14 @@ func fileReader(name string) {
 		line := reader.Text()
 
 		if len(line) == 1 {
-			farmInfo.Ants, _ = strconv.Atoi(line)
-			fmt.Println(farmInfo.Ants)
-		}
-		
-		if strings.Contains(line, " ") {
+			numAnts, _ := strconv.Atoi(line)
+			farmInfo.Ants = numAnts
+		} else if strings.Contains(line, " ") {
 			parts := strings.Fields(line)
-			farmInfo.RoomName = Room{parts[0]}
-			farmInfo.Location.X = parts[1]
-			farmInfo.Location.Y = parts[2]
+			farmInfo.RoomName = parts[0]
+			farmInfo.X = parts[1]
+			farmInfo.Y = parts[2]
 		}
 	}
+	fmt.Println(farmInfo)
 }
