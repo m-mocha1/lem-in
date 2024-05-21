@@ -6,7 +6,7 @@ import (
 
 func main() {
 	graph := NewGraph()
-	fileReader("examples/example00.txt", graph)
+	fileReader("examples/example03.txt", graph)
 	// fileReader("examples/badexample00", graph)
 	fmt.Println("Start Room:", farmInfo.Start)
 	fmt.Println("End Room:", farmInfo.End)
@@ -29,6 +29,5 @@ func main() {
 		fmt.Println("No path found from", start, "to", end)
 	} else {
 		fmt.Println("Path found from", start, "to", end, ":", path)
-		simulateAntMovement(path, farmInfo.Ants)
 	}
 }
