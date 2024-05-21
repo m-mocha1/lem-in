@@ -39,21 +39,21 @@ func BFS(g *Graph, startKey, endKey int) []int {
 		prev[i] = -1
 	}
 
-	queue.Enque(start) // Enqueue the start node
+	queue.Enque(start)
 	visited[start.Key] = true
 
-	for !queue.empty() { // Continue loop until queue is empty
+	for !queue.empty() { 
 		node := queue.remove()
 
 		if node.Key == end.Key {
-			break // Exit loop if end node is found
+			break //
 		}
 
 		for _, next := range node.Close {
 			if !visited[next.Key] {
 				queue.Enque(next)
 				visited[next.Key] = true
-				prev[next.Key] = node.Key // Update prev array
+				prev[next.Key] = node.Key 
 			}
 		}
 	}
@@ -68,5 +68,5 @@ func reconstructPath(startKey, endKey int, prev []int) []int {
 	if len(path) > 0 && path[0] == startKey {
 		return path
 	}
-	return []int{} // Return empty if no path found
+	return []int{} 
 }
