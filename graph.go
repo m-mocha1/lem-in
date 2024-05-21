@@ -6,11 +6,11 @@ func NewGraph() *Graph {
 	return &Graph{Heads: []*Head{}}
 }
 
-func (g *Graph) addHead(k int) {
+func (g *Graph) addHead(k string) {
 	g.Heads = append(g.Heads, &Head{Key: k})
 }
 
-func (g *Graph) findHead(key int) *Head {
+func (g *Graph) findHead(key string) *Head {
 	for _, head := range g.Heads {
 		if head.Key == key {
 			return head
@@ -18,7 +18,7 @@ func (g *Graph) findHead(key int) *Head {
 	}
 	return nil
 }
-func (g *Graph) AddEdge(from, to int) {
+func (g *Graph) AddEdge(from, to string) {
 	fromHead := g.findHead(from)
 	ToHead := g.findHead(to)
 	fromHead.Close = append(fromHead.Close, ToHead)

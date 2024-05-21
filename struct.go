@@ -27,7 +27,7 @@ type Graph struct {
 	Heads []*Head
 }
 type Head struct {
-	Key   int
+	Key   string
 	Close []*Head
 }
 type Queue struct {
