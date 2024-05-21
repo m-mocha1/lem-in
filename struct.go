@@ -30,3 +30,6 @@ type Head struct {
 	Key   int
 	Close []*Head
 }
+type Queue struct {
+    nodes []*Head
+}

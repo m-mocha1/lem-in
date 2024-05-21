@@ -1,10 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 func main() {
 	graph := NewGraph()
-	fileReader("examples/example00", graph)
+	fileReader("examples/example03", graph)
 	fmt.Println("Start Room:", farmInfo.Start)
 	fmt.Println("End Room:", farmInfo.End)
 	fmt.Println("ants num:", farmInfo.Ants)
@@ -17,4 +20,10 @@ func main() {
 	}
 
 	graph.Print()
+
+	start, _ := strconv.Atoi(farmInfo.Start)
+	end, _ := strconv.Atoi(farmInfo.End)
+
+	path := BFS(graph, start, end)
+	fmt.Println("Shortest path", path)
 }
