@@ -1,0 +1,48 @@
+start
+i need to read the file by using:
+
+os.Open the file will be a var of type *os.File which is way to access the content
+
+then reading by bufio.NewScanner which return a *bufio.NewScanner var 
+
+now we do a for (name of the var u stored the bufio.NewScanner).Scan(){
+
+after that we need to store the content of each line with each itration like so{
+	(a var with any name) := (the var that stored the  *bufio.NewScanner ).Text()
+	this will return a string var.
+}
+
+ we need a var to access the main struct(antFarm) 
+ var (any name) antFarm
+ for me its (farmInfo)
+
+ we check the first line by the len if len(line) == 1 that means we are on the first line
+ which have the the number of ants int in the file called examples
+ we convert that line into int and store it in a var  then do
+ a simple  farmInfo.Ants = (name of your var)
+ now u have the number of ants stored 
+}
+
+{we need to check for the start and the end }
+	which i will do later
+
+else if line Contains " " we split the line by " " we store in var called parts
+0. will be the room name and 1.2 will be X-Y which we need to convet to int to store them 
+	convert the parts[1] and [2] to int calle them (x) (y) small letters
+
+we make a var to access the Room struct like this
+(any name ):= (Room struct NAme){
+	Name : parts [0]
+	Location :Location [X:x,Y:y] since  my room struct have another location struct  
+}
+
+now u just neef to append it like so 
+farmInfo.Rooms = appemd (farmInfo.Rooms,(same name))
+ 
+(this is better then the func we used in project 4)
+
+for tunnels split them by "-" and followe the same steps as before
+
+if evrything is good u should see this in the terminal
+{4   [{0 {0 3}} {2 {2 5}} {3 {4 0}} {1 {8 3}}] [{0 2} {2 3} {3 1}]}
+antNum           room names and locations      tunnels and pathes
