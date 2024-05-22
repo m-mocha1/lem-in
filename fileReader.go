@@ -16,10 +16,12 @@ func fileReader(name string, g *Graph) {
 		fmt.Println("err", err)
 	}
 	reader := bufio.NewScanner(file)
-	//try add a counter and if 
+	// try add a counter and if
 	var start, end bool
 	for reader.Scan() {
 		line := reader.Text()
+
+		Fields := strings.Fields(line)
 
 		if line == "##start" {
 			start = true
@@ -31,45 +33,41 @@ func fileReader(name string, g *Graph) {
 			continue
 		}
 
-		if len(line) == 1 {
-			numAnts, _ := strconv.Atoi(line)
+		numAnts, _ := strconv.Atoi(Fields[0])
+		if numAnts > 0 {
 			farmInfo.Ants = numAnts
-			if numAnts <= 0 {
-				fmt.Println("ERROR: invalid data format")
-				return
+		}
+		if strings.Contains(line, " ") {
+			parts := strings.Fields(line)
+			x, _ := strconv.Atoi(parts[1])
+			y, _ := strconv.Atoi(parts[2])
+
+			room := Rooms{
+				Name:     parts[0],
+				Location: Locations{X: x, Y: y},
 			}
-			} else if strings.Contains(line, " ") {
-				parts := strings.Fields(line)
-				x, _ := strconv.Atoi(parts[1])
-				y, _ := strconv.Atoi(parts[2])
+			farmInfo.Rooms = append(farmInfo.Rooms, room)
+			roomNum := parts[0]
+			g.addHead(roomNum)
 
-				room := Rooms{
-					Name:     parts[0],
-					Location: Locations{X: x, Y: y},
-				}
-				farmInfo.Rooms = append(farmInfo.Rooms, room)
-				roomNum := parts[0]
-				g.addHead(roomNum)
-
-				if start {
-					farmInfo.Start = room.Name
-					start = false
-				} else if end {
-					farmInfo.End = room.Name
-					end = false
-				}
-
-			} else if strings.Contains(line, "-") {
-				parts2 := strings.Split(line, "-")
-				tunnels := tunnels{
-					From: parts2[0],
-					To:   parts2[1],
-				}
-				farmInfo.tunnels = append(farmInfo.tunnels, tunnels)
-				from := tunnels.From
-				to := tunnels.To
-				g.AddEdge(from, to)
+			if start {
+				farmInfo.Start = room.Name
+				start = false
+			} else if end {
+				farmInfo.End = room.Name
+				end = false
 			}
+
+		} else if strings.Contains(line, "-") {
+			parts2 := strings.Split(line, "-")
+			tunnels := tunnels{
+				From: parts2[0],
+				To:   parts2[1],
+			}
+			farmInfo.tunnels = append(farmInfo.tunnels, tunnels)
+			from := tunnels.From
+			to := tunnels.To
+			g.AddEdge(from, to)
 		}
 	}
-
+}

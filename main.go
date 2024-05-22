@@ -6,7 +6,7 @@ import (
 
 func main() {
 	graph := NewGraph()
-	fileReader("examples/example03.txt", graph)
+	fileReader("examples/example05.txt", graph)
 	// fileReader("examples/badexample00", graph)
 	fmt.Println("Start Room:", farmInfo.Start)
 	fmt.Println("End Room:", farmInfo.End)

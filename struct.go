@@ -31,5 +31,5 @@ type Head struct {
 	Close []*Head
 }
 type Queue struct {
-    nodes []*Head
+    Nodes []*Head
 }
