@@ -16,6 +16,7 @@ func fileReader(name string, g *Graph) {
 		fmt.Println("err", err)
 	}
 	reader := bufio.NewScanner(file)
+	//try add a counter and if 
 	var start, end bool
 	for reader.Scan() {
 		line := reader.Text()
