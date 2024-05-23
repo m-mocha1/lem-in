@@ -48,7 +48,7 @@ func fileReader(name string, g *Graph) {
 			}
 			farmInfo.Rooms = append(farmInfo.Rooms, room)
 			roomNum := parts[0]
-			g.addHead(roomNum)
+			g.addNode(roomNum)
 
 			if start {
 				farmInfo.Start = room.Name

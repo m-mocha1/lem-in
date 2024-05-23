@@ -12,13 +12,6 @@ func main() {
 	fmt.Println("End Room:", farmInfo.End)
 	fmt.Println("ants num:", farmInfo.Ants)
 
-	for _, room := range farmInfo.Rooms {
-		fmt.Println("room:", room.Name, "location:", room.Location)
-	}
-	for _, tunnel := range farmInfo.tunnels {
-		fmt.Println("tunnel from", tunnel.From, "to", tunnel.To)
-	}
-
 	graph.Print()
 
 	start := farmInfo.Start
@@ -26,8 +19,8 @@ func main() {
 
 	path := DFS(graph, start, end)
 	if len(path) == 0 {
-		fmt.Println("No path found from", start, "to", end)
+		fmt.Println("no tunnels found from", start, "to", end)
 	} else {
-		fmt.Println("Path found from", start, "to", end, ":", path)
+		fmt.Println("fastest path from", start, "to", end, ":", path)
 	}
 }

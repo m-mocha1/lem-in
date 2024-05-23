@@ -24,12 +24,14 @@ type Locations struct {
 }
 
 type Graph struct {
-	Heads []*Head
+	Node []*Nodes
 }
-type Head struct {
-	Key   string
-	Close []*Head
+type Nodes struct {
+	Name  string
+	Close []*Nodes
 }
-type Queue struct {
-    Nodes []*Head
-}
+
+//if u want BFS
+// type Queue struct {
+//     Nodes []*Node
+// }

@@ -2,14 +2,14 @@ package main
 
 import "fmt"
 
-func DFS(graph *Graph, startKey, endKey string) []string {
-	start := graph.findHead(startKey)
+func DFS(graph *Graph, startName, endName string) []string {
+	start := graph.findNode(startName)
 	if start == nil {
 		fmt.Println("Start node not found")
 		return nil
 	}
 
-	end := graph.findHead(endKey)
+	end := graph.findNode(endName)
 	if end == nil {
 		fmt.Println("End node not found")
 		return nil
@@ -17,26 +17,26 @@ func DFS(graph *Graph, startKey, endKey string) []string {
 
 	visited := make(map[string]bool)
 	path := []string{}
-	if dfsVisit(start, endKey, visited, &path) {
+	if dfsVisit(start, endName, visited, &path) {
 		return path
 	}
 	return []string{} // Return empty if no path found
 }
 
-func dfsVisit(node *Head, endKey string, visited map[string]bool, path *[]string) bool {
-	if visited[node.Key] {
+func dfsVisit(node *Nodes, endName string, visited map[string]bool, path *[]string) bool {
+	if visited[node.Name] {
 		return false
 	}
 
-	visited[node.Key] = true
-	*path = append(*path, node.Key)
+	visited[node.Name] = true
+	*path = append(*path, node.Name)
 
-	if node.Key == endKey {
+	if node.Name == endName {
 		return true
 	}
 
 	for _, neighbor := range node.Close {
-		if dfsVisit(neighbor, endKey, visited, path) {
+		if dfsVisit(neighbor, endName, visited, path) {
 			return true
 		}
 	}
