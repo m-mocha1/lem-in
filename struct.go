@@ -24,14 +24,13 @@ type Locations struct {
 }
 
 type Graph struct {
-	Node []*Nodes
+	Nodes map[string]*Nodes
 }
 type Nodes struct {
 	Name  string
 	Close []*Nodes
 }
-
-//if u want BFS
-// type Queue struct {
-//     Nodes []*Node
-// }
+type Ant struct {
+	Room string
+	Id   int
+}

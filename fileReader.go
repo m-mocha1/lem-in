@@ -16,12 +16,18 @@ func fileReader(name string, g *Graph) {
 		fmt.Println("err", err)
 	}
 	reader := bufio.NewScanner(file)
-	// try add a counter and if
 	var start, end bool
+	numAnts := 0
 	for reader.Scan() {
 		line := reader.Text()
 
 		Fields := strings.Fields(line)
+		if numAnts == 0 {
+			numAnts, _ = strconv.Atoi(Fields[0])
+			if numAnts > 0 {
+				farmInfo.Ants = numAnts
+			}
+		}
 
 		if line == "##start" {
 			start = true
@@ -33,21 +39,16 @@ func fileReader(name string, g *Graph) {
 			continue
 		}
 
-		numAnts, _ := strconv.Atoi(Fields[0])
-		if numAnts > 0 {
-			farmInfo.Ants = numAnts
-		}
 		if strings.Contains(line, " ") {
-			parts := strings.Fields(line)
-			x, _ := strconv.Atoi(parts[1])
-			y, _ := strconv.Atoi(parts[2])
+			x, _ := strconv.Atoi(Fields[1])
+			y, _ := strconv.Atoi(Fields[2])
 
 			room := Rooms{
-				Name:     parts[0],
+				Name:     Fields[0],
 				Location: Locations{X: x, Y: y},
 			}
 			farmInfo.Rooms = append(farmInfo.Rooms, room)
-			roomNum := parts[0]
+			roomNum := Fields[0]
 			g.addNode(roomNum)
 
 			if start {
@@ -60,13 +61,13 @@ func fileReader(name string, g *Graph) {
 
 		} else if strings.Contains(line, "-") {
 			parts2 := strings.Split(line, "-")
-			tunnels := tunnels{
+			tunnel := tunnels{
 				From: parts2[0],
 				To:   parts2[1],
 			}
-			farmInfo.tunnels = append(farmInfo.tunnels, tunnels)
-			from := tunnels.From
-			to := tunnels.To
+			farmInfo.tunnels = append(farmInfo.tunnels, tunnel)
+			from := tunnel.From
+			to := tunnel.To
 			g.AddEdge(from, to)
 		}
 	}

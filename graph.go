@@ -3,15 +3,15 @@ package main
 import "fmt"
 
 func NewGraph() *Graph {
-	return &Graph{Node: []*Nodes{}}
+	return &Graph{Nodes: make(map[string]*Nodes)}
 }
 
 func (g *Graph) addNode(k string) {
-	g.Node = append(g.Node, &Nodes{Name: k})
+	g.Nodes[k] = &Nodes{Name: k}
 }
 
 func (g *Graph) findNode(Name string) *Nodes {
-	for _, Node := range g.Node {
+	for _, Node := range g.Nodes {
 		if Node.Name == Name {
 			return Node
 		}
@@ -27,7 +27,7 @@ func (g *Graph) AddEdge(from, to string) {
 }
 
 func (g *Graph) Print() {
-	for _, v := range g.Node {
+	for _, v := range g.Nodes {
 		for _, t := range v.Close {
 			fmt.Println("Node-Name", v.Name, "Tunnel to ", t.Name, "Node", "\n")
 		}
