@@ -29,7 +29,7 @@ func (g *Graph) AddEdge(from, to string) {
 func (g *Graph) Print() {
 	for _, v := range g.Nodes {
 		for _, t := range v.Close {
-			fmt.Println("Node-Name", v.Name, "Tunnel to ", t.Name, "Node", "\n")
+			fmt.Println("Node-Name", v.Name, "Tunnel to ", t.Name, "Node")
 		}
 	}
 	fmt.Println()
