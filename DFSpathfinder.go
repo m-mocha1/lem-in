@@ -2,19 +2,18 @@ package main
 
 import (
 	"fmt"
-	"sort"
 )
 
 func DFS(graph *Graph, startName, endName string) (pathes [][]string) {
 	start := graph.findNode(startName)
 	if start == nil {
-		fmt.Println("Start node not found")
+		fmt.Println("start node not found")
 		return nil
 	}
 
 	end := graph.findNode(endName)
 	if end == nil {
-		fmt.Println("End node not found")
+		fmt.Println("end node not found")
 		return nil
 	}
 
@@ -46,9 +45,4 @@ func dfsVisit(node *Nodes, endName string, visited map[string]bool, path []strin
 	visited[node.Name] = false
 	path = path[:len(path)-1]
 
-}
-func sorting(arr [][]string) {
-	sort.Slice(arr, func(i, j int) bool {
-		return len(arr[i]) < len(arr[j])
-	})
 }

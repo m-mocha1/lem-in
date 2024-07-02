@@ -35,72 +35,38 @@ func chosingPathes(pathes [][]string, n int) []Ant {
 	return ants
 }
 
-func move(ants []Ant, rooms map[string]*Rooms, endRoom string) {
-	steps := 0
-
-	for {
-		allAtEnd := true
-
-		for i := range ants {
-			ant := &ants[i]
-			if ant.End {
-				continue
-			}
-
-			allAtEnd = false
-			currentRoom := rooms[ant.path[ant.pos]]
-			nextRoom := rooms[ant.path[ant.pos+1]]
-
-			if nextRoom.Name != endRoom && nextRoom.occupiedBy == nil {
-				currentRoom.occupiedBy = nil
-				nextRoom.occupiedBy = ant
-				ant.currentRoom = nextRoom.Name
-				ant.pos++
-				fmt.Print("L", ant.id, "-", nextRoom.Name, " ")
-			} else if nextRoom.Name == endRoom {
-				ant.End = true
-				currentRoom.occupiedBy = nil
-				ant.currentRoom = endRoom
-				ant.pos++
-				fmt.Print("L", ant.id, "-", nextRoom.Name, " ")
-			}
+func move(ants []Ant, rooms map[string]*Rooms, endRoom string, steps int) {
+	
+	anyMoved := false
+	
+	fmt.Println(steps)
+	for i := range ants {
+		ant := &ants[i]
+		if ant.End {
+			continue
 		}
 
-		fmt.Println(steps)
-		steps++
+		currentRoom := rooms[ant.path[ant.pos]]
+		nextRoom := rooms[ant.path[ant.pos+1]]
 
-		if allAtEnd {
-			break
+		if nextRoom.Name != endRoom && nextRoom.occupiedBy == nil {
+			currentRoom.occupiedBy = nil
+			nextRoom.occupiedBy = ant
+			ant.currentRoom = nextRoom.Name
+			ant.pos++
+			fmt.Print("L", ant.id, "-", nextRoom.Name, " ")
+			anyMoved = true
+		} else if nextRoom.Name == endRoom {
+			ant.End = true
+			currentRoom.occupiedBy = nil
+			ant.currentRoom = endRoom
+			ant.pos++
+			fmt.Print("L", ant.id, "-", nextRoom.Name, " ")
+			anyMoved = true
 		}
 	}
+
+	if anyMoved {
+		move(ants, rooms, endRoom, steps+1)
+	}
 }
-
-// func move(ants []Ant, rooms map[string]*Rooms, endRoom string, steps int) {
-
-// 	fmt.Println(steps)
-// 	for i := range ants {
-// 		ant := &ants[i]
-// 		if ant.End {
-// 			continue
-// 		}
-
-// 		currentRoom := rooms[ant.path[ant.pos]]
-// 		nextRoom := rooms[ant.path[ant.pos+1]]
-
-// 		if nextRoom.Name != endRoom && nextRoom.occupiedBy == nil {
-// 			currentRoom.occupiedBy = nil
-// 			nextRoom.occupiedBy = ant
-// 			ant.currentRoom = nextRoom.Name
-// 			ant.pos++
-// 			fmt.Print("L", ant.id, "-", nextRoom.Name, " ")
-// 		} else if nextRoom.Name == endRoom {
-// 			ant.End = true
-// 			currentRoom.occupiedBy = nil
-// 			ant.currentRoom = endRoom
-// 			ant.pos++
-// 			fmt.Print("L", ant.id, "-", nextRoom.Name, " ")
-// 		}
-// 	}
-
-// 	move(ants, rooms, endRoom, steps+1)
-// }

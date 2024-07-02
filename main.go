@@ -6,16 +6,15 @@ import (
 )
 
 /* working
-ex0 ex3 ex5 ex6-6.1264ms- ex7-24.5509ms-  be00 be01 be02
+ex0 ex01 ex3 ex04 ex5 ex6-6.6724ms- ex7-71.4004ms-  be00 be01 be02
 not working
-ex01 ex04
+ex2
 */
 
 func main() {
 	timestart := time.Now()
 	graph := NewGraph()
-	fileReader("examples/example07.txt", graph)
-	// fileReader("examples/badexample02.txt", graph)
+	fileReader("examples/example04.txt", graph)
 
 	fmt.Println("Start Room:", farmInfo.Start)
 	fmt.Println("End Room:", farmInfo.End)
@@ -34,30 +33,22 @@ func main() {
 		return
 	}
 
-	sorting(paths)
 	fmt.Println(paths)
 
-	
 	fmt.Println()
-
-	// fmt.Print(chosingPathes(paths, farmInfo.numAnts))
 
 	rooms := make(map[string]*Rooms)
 	for _, path := range paths {
 		for _, room := range path {
-			if _, exists := rooms[room]; !exists {
-				rooms[room] = &Rooms{Name: room, occupiedBy: nil}
-			}
+			rooms[room] = &Rooms{Name: room, occupiedBy: nil}
 		}
 	}
 
-	newPathes := RemoveTooLongPaths(paths)
+	newPathes := RemoveBadPaths(paths)
 	fmt.Println(newPathes)
-	ants := chosingPathes(paths, farmInfo.numAnts)
-	// moveAnts(ants, rooms, farmInfo.Start, farmInfo.End)
+	ants := chosingPathes(newPathes, farmInfo.numAnts)
 	move(ants, rooms, farmInfo.End, 0)
 
 	pased := time.Since(timestart)
 	fmt.Println(pased)
 }
-

@@ -23,7 +23,7 @@ func (g *Graph) AddEdge(from, to string) {
 	ToNode := g.findNode(to)
 	fromNode.Close = append(fromNode.Close, ToNode)
 	//if u want 2 dirictons uncomment this
-	ToNode.Close = append(ToNode.Close, fromNode)
+	// ToNode.Close = append(ToNode.Close, fromNode)
 }
 
 func (g *Graph) Print() {
