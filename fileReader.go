@@ -25,8 +25,9 @@ func fileReader(name string, g *Graph) {
 		if numAnts == 0 {
 			numAnts, _ = strconv.Atoi(Fields[0])
 			if numAnts > 0 {
-				farmInfo.Ants = numAnts
+				farmInfo.numAnts = numAnts
 			}
+			
 		}
 
 		if line == "##start" {
@@ -40,14 +41,10 @@ func fileReader(name string, g *Graph) {
 		}
 
 		if strings.Contains(line, " ") {
-			x, _ := strconv.Atoi(Fields[1])
-			y, _ := strconv.Atoi(Fields[2])
-
 			room := Rooms{
-				Name:     Fields[0],
-				Location: Locations{X: x, Y: y},
+				Name: Fields[0],
 			}
-			farmInfo.Rooms = append(farmInfo.Rooms, room)
+			farmInfo.Rooms = append(farmInfo.Rooms, &room)
 			roomNum := Fields[0]
 			g.addNode(roomNum)
 
@@ -61,7 +58,7 @@ func fileReader(name string, g *Graph) {
 
 		} else if strings.Contains(line, "-") {
 			parts2 := strings.Split(line, "-")
-			tunnel := tunnels{
+			tunnel := Tunnels{
 				From: parts2[0],
 				To:   parts2[1],
 			}

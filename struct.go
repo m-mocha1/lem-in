@@ -1,26 +1,23 @@
 package main
 
 type antFarm struct {
-	Ants    int
+	numAnts int
 	Start   string
 	End     string
-	Rooms   []Rooms
-	tunnels []tunnels
+	Rooms   []*Rooms
+	tunnels []Tunnels
+	Ants    []Ant
+	Paths   [][]string
 }
 
 type Rooms struct {
-	Name     string
-	Location Locations
+	Name       string
+	occupiedBy *Ant
 }
 
-type tunnels struct {
+type Tunnels struct {
 	From string
 	To   string
-}
-
-type Locations struct {
-	X int
-	Y int
 }
 
 type Graph struct {
@@ -31,6 +28,13 @@ type Nodes struct {
 	Close []*Nodes
 }
 type Ant struct {
-	Room string
-	Id   int
+	id          int
+	path        []string
+	pos         int
+	currentRoom string
+	End bool
+}
+type Path struct {
+	Rooms     []Rooms
+	AntsCount int
 }

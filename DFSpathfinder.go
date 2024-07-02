@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 func DFS(graph *Graph, startName, endName string) (pathes [][]string) {
 	start := graph.findNode(startName)
@@ -43,4 +46,9 @@ func dfsVisit(node *Nodes, endName string, visited map[string]bool, path []strin
 	visited[node.Name] = false
 	path = path[:len(path)-1]
 
+}
+func sorting(arr [][]string) {
+	sort.Slice(arr, func(i, j int) bool {
+		return len(arr[i]) < len(arr[j])
+	})
 }
