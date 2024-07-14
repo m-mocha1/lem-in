@@ -1,16 +1,14 @@
 package main
 
-import "fmt"
-
 func NewGraph() *Graph {
-	return &Graph{Nodes: make(map[string]*Nodes)}
+	return &Graph{Nodes: make(map[string]*Node)}
 }
 
 func (g *Graph) addNode(k string) {
-	g.Nodes[k] = &Nodes{Name: k}
+	g.Nodes[k] = &Node{Name: k}
 }
 
-func (g *Graph) findNode(Name string) *Nodes {
+func (g *Graph) findNode(Name string) *Node {
 	for _, Node := range g.Nodes {
 		if Node.Name == Name {
 			return Node
@@ -24,13 +22,4 @@ func (g *Graph) AddEdge(from, to string) {
 	fromNode.Close = append(fromNode.Close, ToNode)
 	//if u want 2 dirictons uncomment this
 	// ToNode.Close = append(ToNode.Close, fromNode)
-}
-
-func (g *Graph) Print() {
-	for _, v := range g.Nodes {
-		for _, t := range v.Close {
-			fmt.Println("Node-Name", v.Name, "Tunnel to ", t.Name, "Node")
-		}
-	}
-	fmt.Println()
 }

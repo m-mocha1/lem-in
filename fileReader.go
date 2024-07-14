@@ -17,17 +17,15 @@ func fileReader(name string, g *Graph) {
 	}
 	reader := bufio.NewScanner(file)
 	var start, end bool
-	numAnts := 0
+	validNum := false
 	for reader.Scan() {
 		line := reader.Text()
 
 		Fields := strings.Fields(line)
-		if numAnts == 0 {
-			numAnts, _ = strconv.Atoi(Fields[0])
-			if numAnts > 0 {
-				farmInfo.numAnts = numAnts
-			}
-			
+
+		if !validNum {
+			farmInfo.numAnts, _ = strconv.Atoi(Fields[0])
+			validNum = true
 		}
 
 		if line == "##start" {

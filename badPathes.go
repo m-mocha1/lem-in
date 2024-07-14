@@ -1,7 +1,12 @@
 package main
 
-func RemoveBadPaths(paths [][]string) [][]string {
+import (
+	"fmt"
+	"time"
+)
 
+func RemoveBadPaths(paths [][]string) [][]string {
+	start := time.Now()
 	var newPaths [][]string
 
 	for _, path := range paths {
@@ -16,6 +21,8 @@ func RemoveBadPaths(paths [][]string) [][]string {
 			newPaths = append(newPaths, path)
 		}
 	}
+	end := time.Since(start)
+	fmt.Println("the time it took to filter the pathes ", end)
 	return newPaths
 }
 func checkDuplicates(path1, path2 []string) bool {

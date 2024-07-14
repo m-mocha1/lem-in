@@ -23,7 +23,7 @@ func DFS(graph *Graph, startName, endName string) (pathes [][]string) {
 	return pathes
 }
 
-func dfsVisit(node *Nodes, endName string, visited map[string]bool, path []string, pathes *[][]string) {
+func dfsVisit(node *Node, endName string, visited map[string]bool, path []string, pathes *[][]string) {
 	if visited[node.Name] {
 		return
 	}
@@ -32,17 +32,15 @@ func dfsVisit(node *Nodes, endName string, visited map[string]bool, path []strin
 	path = append(path, node.Name)
 
 	if node.Name == endName {
-		onePath := make([]string, len(path))
-		copy(onePath, path)
-		*pathes = append(*pathes, onePath)
+		*pathes = append(*pathes, path)
 	} else {
 		for _, jary := range node.Close {
 			dfsVisit(jary, endName, visited, path, pathes)
-
 		}
 	}
 	// if we reached here, then we need to backtrack
-	visited[node.Name] = false
-	path = path[:len(path)-1]
 
+	visited[node.Name] = false
+
+	path = path[:len(path)-1]
 }

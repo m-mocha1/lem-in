@@ -21,11 +21,11 @@ type Tunnels struct {
 }
 
 type Graph struct {
-	Nodes map[string]*Nodes
+	Nodes map[string]*Node
 }
-type Nodes struct {
+type Node struct {
 	Name  string
-	Close []*Nodes
+	Close []*Node
 }
 type Ant struct {
 	id          int
