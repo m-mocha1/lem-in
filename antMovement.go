@@ -57,6 +57,8 @@ func move(ants []Ant, rooms map[string]*Rooms, endRoom string, steps int) {
 			continue
 		}
 
+		
+
 		currentRoom := rooms[ant.path[ant.pos]]
 		nextRoom := rooms[ant.path[ant.pos+1]]
 

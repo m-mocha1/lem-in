@@ -5,10 +5,11 @@ import (
 	"time"
 )
 
+// example03 not working
 func main() {
 	timestart := time.Now()
 	graph := NewGraph()
-	fileReader("examples/example05.txt", graph)
+	fileReader("examples/example04.txt", graph)
 	// fileReader("examples/badexample00.txt", graph)
 
 	if farmInfo.numAnts == 0 {
@@ -28,8 +29,9 @@ func main() {
 		fmt.Println("ERROR: invalid data format No pathes to end room")
 		return
 	}
-
-	fmt.Println(paths)
+	if len(paths) > 10 {
+		sorting(paths)
+	}
 
 	fmt.Println()
 

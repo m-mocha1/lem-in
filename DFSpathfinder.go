@@ -32,7 +32,9 @@ func dfsVisit(node *Node, endName string, visited map[string]bool, path []string
 	path = append(path, node.Name)
 
 	if node.Name == endName {
-		*pathes = append(*pathes, path)
+		pathCopy := make([]string, len(path))
+		copy(pathCopy, path)
+		*pathes = append(*pathes, pathCopy)
 	} else {
 		for _, jary := range node.Close {
 			dfsVisit(jary, endName, visited, path, pathes)

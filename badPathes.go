@@ -2,8 +2,15 @@ package main
 
 import (
 	"fmt"
+	"sort"
 	"time"
 )
+
+func sorting(arr [][]string) {
+	sort.Slice(arr, func(i, j int) bool {
+		return len(arr[i]) < len(arr[j])
+	})
+}
 
 func RemoveBadPaths(paths [][]string) [][]string {
 	start := time.Now()
@@ -25,6 +32,7 @@ func RemoveBadPaths(paths [][]string) [][]string {
 	fmt.Println("the time it took to filter the pathes ", end)
 	return newPaths
 }
+
 func checkDuplicates(path1, path2 []string) bool {
 	for _, room1 := range path1 {
 		if room1 == farmInfo.Start || room1 == farmInfo.End {
