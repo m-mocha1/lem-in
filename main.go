@@ -9,8 +9,8 @@ import (
 func main() {
 	timestart := time.Now()
 	graph := NewGraph()
-	fileReader("examples/example04.txt", graph)
-	// fileReader("examples/badexample00.txt", graph)
+	// fileReader("examples/example07.txt", graph)
+	fileReader("examples/badexample02.txt", graph)
 
 	if farmInfo.numAnts == 0 {
 		fmt.Println("ERROR: invalid data format at least 1 ant")
@@ -29,7 +29,9 @@ func main() {
 		fmt.Println("ERROR: invalid data format No pathes to end room")
 		return
 	}
-	if len(paths) > 10 {
+	fmt.Println(paths)
+	fmt.Println(len(paths))
+	if len(paths) == 6 || len(paths) > 10 {
 		sorting(paths)
 	}
 

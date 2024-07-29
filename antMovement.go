@@ -1,8 +1,6 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 func roomsPlusAnts(path []string, antsInPath int) int {
 	return len(path) + antsInPath
@@ -46,10 +44,8 @@ func makeRooms(pathes [][]string) map[string]*Rooms {
 }
 
 func move(ants []Ant, rooms map[string]*Rooms, endRoom string, steps int) {
-
-	Moving := false
-
 	fmt.Println(steps)
+	tunnel := make(map[string]bool) 
 
 	for i := range ants {
 		ant := &ants[i]
@@ -57,10 +53,13 @@ func move(ants []Ant, rooms map[string]*Rooms, endRoom string, steps int) {
 			continue
 		}
 
-		
-
 		currentRoom := rooms[ant.path[ant.pos]]
 		nextRoom := rooms[ant.path[ant.pos+1]]
+
+		tunnelName := currentRoom.Name + " to " + nextRoom.Name 
+		if tunnel[tunnelName] {
+			continue 
+		}
 
 		if nextRoom.Name != endRoom && nextRoom.occupiedBy == nil {
 			currentRoom.occupiedBy = nil
@@ -68,18 +67,53 @@ func move(ants []Ant, rooms map[string]*Rooms, endRoom string, steps int) {
 			ant.currentRoom = nextRoom.Name
 			ant.pos++
 			fmt.Print("L", ant.id, "-", nextRoom.Name, " ")
-			Moving = true
+			tunnel[tunnelName] = true
 		} else if nextRoom.Name == endRoom {
 			ant.End = true
 			currentRoom.occupiedBy = nil
 			ant.currentRoom = endRoom
 			ant.pos++
 			fmt.Print("L", ant.id, "-", nextRoom.Name, " ")
-			Moving = true
+			tunnel[tunnelName] = true
 		}
 	}
-
-	if Moving {
+	if len(tunnel) > 0 {
 		move(ants, rooms, endRoom, steps+1)
 	}
 }
+
+// func move(ants []Ant, rooms map[string]*Rooms, endRoom string, steps int) {
+// 	Moving := false
+
+// 	fmt.Println(steps)
+
+// 	for i := range ants {
+// 		ant := &ants[i]
+// 		if ant.End {
+// 			continue
+// 		}
+
+// 		currentRoom := rooms[ant.path[ant.pos]]
+// 		nextRoom := rooms[ant.path[ant.pos+1]]
+
+// 		if nextRoom.Name != endRoom && nextRoom.occupiedBy == nil {
+// 			currentRoom.occupiedBy = nil
+// 			nextRoom.occupiedBy = ant
+// 			ant.currentRoom = nextRoom.Name
+// 			ant.pos++
+// 			fmt.Print("L", ant.id, "-", nextRoom.Name, " ")
+// 			Moving = true
+// 		} else if nextRoom.Name == endRoom {
+// 			ant.End = true
+// 			currentRoom.occupiedBy = nil
+// 			ant.currentRoom = endRoom
+// 			ant.pos++
+// 			fmt.Print("L", ant.id, "-", nextRoom.Name, " ")
+// 			Moving = true
+// 		}
+// 	}
+
+// 	if Moving {
+// 		move(ants, rooms, endRoom, steps+1)
+// 		}
+// 		}
